@@ -1,0 +1,8 @@
+<div class="content-container">
+  <button>Pievienot jaunu lietotāju</button>
+  <app-user-list [users]="users"></app-user-list>
+</div>
+
+<div class="content-container">
+  <app-user-add (addUserEvent)="addUser($event)"></app-user-add>
+</div>

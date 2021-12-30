@@ -1,0 +1,61 @@
+<div class="navbar">
+  <img
+    class="logo"
+    src="https://clickup.com/blog/wp-content/uploads/2019/01/to-do-list-apps.png"
+    alt=""
+  />
+  <h1>My To Do List</h1>
+</div>
+<div class="todo">
+  <div class="todo__menu">
+    <input
+      [(ngModel)]="todoTitle"
+      class="todo__input"
+      type="text"
+      placeholder="Add a task"
+      (keydown.enter)="addTask()"
+      autofocus
+    />
+    <button class="button" (click)="addTask()">Add</button>
+    <button class="button" (click)="removeAll()">Remove All</button>
+    <button class="button" (click)="toggleCompletedTasks()">
+      {{ !completedTasks ? 'Hide completed' : 'Show completed' }}
+    </button>
+  </div>
+  <div class="todo__list">
+    <div
+      [style.color]="todo.completed ? 'green' : 'black'"
+      class="todo__item"
+      *ngFor="let todo of filteredTodos(); index as i"
+    >
+      <h3
+        [style.textDecoration]="todo.completed ? 'line-through' : 'none'"
+        *ngIf="!todo.edit; else editTodo"
+        (dblclick)="editTask(i)"
+      >
+        {{ todo.title }}
+      </h3>
+      <ng-template #editTodo>
+        <input
+          class="todo__edit"
+          [style.color]="todo.completed ? 'green' : 'black'"
+          [style.textDecoration]="todo.completed ? 'line-through' : 'none'"
+          (keydown.enter)="editTask(i)"
+          [(ngModel)]="todo.title"
+          type="text"
+          autofocus
+        />
+      </ng-template>
+
+      <div>
+        <button (click)="setDoneTask(i)" class="button">
+          {{ !todo.completed ? 'Done' : 'Undone' }}
+        </button>
+        <button (click)="editTask(i)" class="button">
+          {{ !todo.edit ? 'Edit' : 'Save' }}
+        </button>
+        <button (click)="removeTask(i)" class="button">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

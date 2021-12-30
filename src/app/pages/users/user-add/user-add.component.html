@@ -1,0 +1,34 @@
+<form [formGroup]="addUserForm">
+  <label for="showCountryCheckbox">Parādīt valsts izvēlni</label>
+  <input
+    id="showCountryCheckbox"
+    type="checkbox"
+    [(ngModel)]="showCountrySelect"
+    [ngModelOptions]="{ standalone: true }"
+  />
+
+  <div>
+    <label for="name">Vārds </label>
+    <input id="name" type="text" formControlName="name" />
+  </div>
+
+  <div>
+    <label for="surname">Uzvārds </label>
+    <input id="surname" type="text" formControlName="surname" />
+  </div>
+
+  <div *ngIf="showCountrySelect">
+    <label for="country">Valsts </label>
+    <select id="country" formControlName="country">
+      <option value="lv">Latvija</option>
+      <option value="lt">Lietuva</option>
+      <option value="ee">Igaunija</option>
+    </select>
+  </div>
+
+  <button [disabled]="addUserForm.invalid" (click)="addUser()" type="button">
+    Pievienot
+  </button>
+</form>
+
+<span>{{ addUserForm.value | json }}</span>
