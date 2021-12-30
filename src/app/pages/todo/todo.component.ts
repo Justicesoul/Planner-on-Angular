@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { ToDo } from 'src/app/shared/models/todo.model';
+import { TodoService } from 'src/app/shared/services/todo.service';
 
 @Component({
   selector: 'todo',
@@ -23,20 +24,11 @@ export class TodoComponent implements OnInit {
   todoTitle = "";
   completedTasks = false
 
-  constructor() {
-
+  constructor(private todoService: TodoService) {
   }
 
   ngOnInit(): void {
-    this.todos = [{
-      title: "To think today",
-      completed: false,
-      edit: false,
-    }, {
-      title: "To pray today",
-      completed: false,
-      edit: false
-    },]
+    this.todos = this.todoService.getTodos();
   };
 
   addTask(): void {
